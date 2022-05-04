@@ -1,0 +1,3 @@
+table:
+  name: dance_events_dancers
+  schema: public

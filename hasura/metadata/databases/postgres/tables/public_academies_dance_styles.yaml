@@ -1,0 +1,43 @@
+table:
+  name: academies_dance_styles
+  schema: public
+object_relationships:
+- name: academy
+  using:
+    foreign_key_constraint_on: academy_id
+- name: dance_style
+  using:
+    foreign_key_constraint_on: dance_style_id
+insert_permissions:
+- permission:
+    backend_only: false
+    check: {}
+    columns:
+    - dance_style_id
+    - id
+    set:
+      academy_id: x-hasura-academy-id
+  role: academy
+select_permissions:
+- permission:
+    allow_aggregations: true
+    columns:
+    - academy_id
+    - dance_style_id
+    - id
+    filter: {}
+  role: academy
+- permission:
+    allow_aggregations: true
+    columns:
+    - academy_id
+    - dance_style_id
+    - id
+    filter: {}
+  role: dancer
+delete_permissions:
+- permission:
+    filter:
+      academy_id:
+        _eq: X-Hasura-academy-Id
+  role: academy

@@ -1,0 +1,43 @@
+{
+  "name": "nextjs-med-blog",
+  "version": "0.1.0",
+  "description": "Next.js starter",
+  "author": "nestPress",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -p 3001",
+    "build": "next build",
+    "start": "next start -p $PORT",
+    "heroku-postbuild": "npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "hasura": "./node_modules/.bin/hasura --project=./hasura",
+    "hasura:migrate:apply": "yarn hasura migrate apply --all-databases",
+    "hasura:metadata:apply": "yarn hasura metadata apply"
+  },
+  "dependencies": {
+    "@babel/preset-react": "^7.16.7",
+    "autoprefixer": "^10.4.2",
+    "next": "@latest",
+    "next-compose-plugins": "^2.2.0",
+    "next-images": "^1.8.1",
+    "postcss": "^8.4.6",
+    "postcss-import": "^14.0.2",
+    "postcss-preset-env": "^6.7.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-hook-form": "^7.28.1",
+    "react-icons": "^4.3.1",
+    "tailwindcss": "^3.0.19",
+    "jsonwebtoken": "^8.5.1"
+  },
+  "devDependencies": {
+    "@types/jsonwebtoken": "^8.5.8",
+    "@types/next": "^9.0.0",
+    "@types/node": "^14.0.22",
+    "@types/react": "^16.9.43",
+    "@types/react-dom": "^16.9.8",
+    "hasura-cli": "^2.2.0",
+    "typescript": "@latest"
+  }
+}

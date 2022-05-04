@@ -1,0 +1,42 @@
+table:
+  name: dancer_languages
+  schema: public
+object_relationships:
+- name: dancer
+  using:
+    foreign_key_constraint_on: dancer_id
+- name: language
+  using:
+    foreign_key_constraint_on: language_id
+insert_permissions:
+- permission:
+    backend_only: false
+    check: {}
+    columns:
+    - dancer_id
+    - id
+    - language_id
+    set:
+      dancer_id: x-hasura-Dancer-Id
+  role: dancer
+select_permissions:
+- permission:
+    columns:
+    - dancer_id
+    - id
+    - language_id
+    filter: {}
+  role: academy
+- permission:
+    columns:
+    - dancer_id
+    - id
+    - language_id
+    filter: {}
+  role: dancer
+delete_permissions:
+- permission:
+    filter:
+      dancer_id:
+        _eq: X-Hasura-Dancer-Id
+  role: dancer

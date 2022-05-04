@@ -1,0 +1,2 @@
+CREATE TABLE "public"."messages" ("id" uuid NOT NULL DEFAULT gen_random_uuid(), "content" text NOT NULL, "sent_at" timestamptz NOT NULL DEFAULT now(), "who_read" JSON, "sender_id" uuid NOT NULL, "conversation_id" uuid NOT NULL, PRIMARY KEY ("id") , FOREIGN KEY ("sender_id") REFERENCES "public"."users"("id") ON UPDATE restrict ON DELETE restrict, FOREIGN KEY ("conversation_id") REFERENCES "public"."conversations"("id") ON UPDATE cascade ON DELETE cascade);
+CREATE EXTENSION IF NOT EXISTS pgcrypto;

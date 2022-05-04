@@ -1,0 +1,156 @@
+table:
+  name: users
+  schema: public
+object_relationships:
+- name: academy
+  using:
+    foreign_key_constraint_on: academy_id
+- name: dancer
+  using:
+    foreign_key_constraint_on: dancer_id
+array_relationships:
+- name: academies
+  using:
+    foreign_key_constraint_on:
+      column: user_id
+      table:
+        name: academies
+        schema: public
+- name: conversations_users
+  using:
+    foreign_key_constraint_on:
+      column: user_id
+      table:
+        name: conversations_users
+        schema: public
+- name: dance_event_owner
+  using:
+    foreign_key_constraint_on:
+      column: owner_id
+      table:
+        name: dance_events
+        schema: public
+- name: dance_events_users
+  using:
+    foreign_key_constraint_on:
+      column: user_id
+      table:
+        name: dance_events_users
+        schema: public
+- name: dancers
+  using:
+    foreign_key_constraint_on:
+      column: user_id
+      table:
+        name: dancers
+        schema: public
+- name: dislikes_givers
+  using:
+    foreign_key_constraint_on:
+      column: giver_id
+      table:
+        name: dislikes
+        schema: public
+- name: dislikes_receivers
+  using:
+    foreign_key_constraint_on:
+      column: receiver_id
+      table:
+        name: dislikes
+        schema: public
+- name: likes_givers
+  using:
+    foreign_key_constraint_on:
+      column: giver_id
+      table:
+        name: likes
+        schema: public
+- name: likes_receivers
+  using:
+    foreign_key_constraint_on:
+      column: receiver_id
+      table:
+        name: likes
+        schema: public
+- name: messages
+  using:
+    foreign_key_constraint_on:
+      column: sender_id
+      table:
+        name: messages
+        schema: public
+- name: preferences
+  using:
+    foreign_key_constraint_on:
+      column: user_id
+      table:
+        name: preferences
+        schema: public
+insert_permissions:
+- permission:
+    backend_only: false
+    check: {}
+    columns:
+    - email
+    - facebook_id
+    - password
+  role: anonymous
+select_permissions:
+- permission:
+    allow_aggregations: true
+    columns:
+    - academy_id
+    - dancer_id
+    - email
+    - facebook_id
+    - google_id
+    - id
+    filter: {}
+  role: academy
+- permission:
+    columns:
+    - academy_id
+    - dancer_id
+    - email
+    - facebook_id
+    - google_id
+    - id
+    - preferences_id
+    filter: {}
+  role: dancer
+update_permissions:
+- permission:
+    check: null
+    columns:
+    - email
+    - id
+    - password
+    - preferences_id
+    filter:
+      id:
+        _eq: X-Hasura-User-Id
+    set:
+      id: x-hasura-User-Id
+  role: academy
+- permission:
+    check: null
+    columns:
+    - email
+    - preferences_id
+    filter:
+      id:
+        _eq: X-Hasura-User-Id
+    set:
+      id: x-hasura-User-Id
+  role: dancer
+event_triggers:
+- definition:
+    enable_manual: false
+    insert:
+      columns: "*"
+  name: on-create-user
+  retry_conf:
+    interval_sec: 10
+    num_retries: 0
+    timeout_sec: 60
+  webhook: http://host.docker.internal:3000/api/hello

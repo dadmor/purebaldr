@@ -1,0 +1,36 @@
+table:
+  name: dislikes
+  schema: public
+object_relationships:
+- name: giver
+  using:
+    foreign_key_constraint_on: giver_id
+- name: reciever
+  using:
+    foreign_key_constraint_on: receiver_id
+insert_permissions:
+- permission:
+    backend_only: false
+    check: {}
+    columns:
+    - id
+    - receiver_id
+    set:
+      giver_id: x-hasura-User-Id
+  role: dancer
+select_permissions:
+- permission:
+    columns:
+    - giver_id
+    - id
+    - receiver_id
+    filter:
+      giver_id:
+        _eq: X-Hasura-User-Id
+  role: dancer
+delete_permissions:
+- permission:
+    filter:
+      giver_id:
+        _eq: X-Hasura-User-Id
+  role: dancer

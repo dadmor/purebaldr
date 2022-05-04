@@ -1,0 +1,31 @@
+table:
+  name: languages
+  schema: public
+array_relationships:
+- name: academies_languages
+  using:
+    foreign_key_constraint_on:
+      column: language_id
+      table:
+        name: academies_languages
+        schema: public
+- name: dancer_languages
+  using:
+    foreign_key_constraint_on:
+      column: language_id
+      table:
+        name: dancer_languages
+        schema: public
+select_permissions:
+- permission:
+    columns:
+    - name
+    - id
+    filter: {}
+  role: academy
+- permission:
+    columns:
+    - name
+    - id
+    filter: {}
+  role: dancer

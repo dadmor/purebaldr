@@ -1,0 +1,21 @@
+actions:
+- name: sign_in
+  definition:
+    kind: synchronous
+    handler: '{{ACTION_BASE_URL}}/sign-in'
+  permissions:
+  - role: anonymous
+- name: sign_up
+  definition:
+    kind: synchronous
+    handler: '{{ACTION_BASE_URL}}/sign-up'
+  permissions:
+  - role: anonymous
+custom_types:
+  enums: []
+  input_objects: []
+  objects:
+  - name: SignInOutput
+  - name: SignUpOutput
+  - name: SendMessageOutput
+  scalars: []

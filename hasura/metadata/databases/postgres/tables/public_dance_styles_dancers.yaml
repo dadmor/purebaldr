@@ -1,0 +1,45 @@
+table:
+  name: dance_styles_dancers
+  schema: public
+object_relationships:
+- name: dance_style
+  using:
+    foreign_key_constraint_on: dance_style_id
+- name: dancer
+  using:
+    foreign_key_constraint_on: dancer_id
+insert_permissions:
+- permission:
+    backend_only: false
+    check:
+      dancer:
+        user_id:
+          _eq: X-Hasura-User-Id
+    columns:
+    - dance_style_id
+    - id
+    set:
+      dancer_id: x-hasura-Dancer-Id
+  role: dancer
+select_permissions:
+- permission:
+    columns:
+    - dancer_id
+    - dance_style_id
+    - id
+    filter: {}
+  role: academy
+- permission:
+    columns:
+    - dancer_id
+    - dance_style_id
+    - id
+    filter: {}
+  role: dancer
+delete_permissions:
+- permission:
+    filter:
+      dancer:
+        user_id:
+          _eq: X-Hasura-User-Id
+  role: dancer

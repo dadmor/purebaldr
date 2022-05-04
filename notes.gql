@@ -1,0 +1,87 @@
+mutation MyMutation($receiver_id: uuid!) {
+  insert_likes_one(object: {receiver_id: $receiver_id}) {
+    id
+    giver_id
+    receiver_id
+  }
+}
+
+mutation my {
+  sign_in(email: "duspko5@gmail.com", password: "!QAZxsw2") {
+    access_token
+  }
+}
+
+query check_likes($receiver_id: uuid!, $giver_id: uuid!) {
+  likes(where: {giver_id: {_eq: $receiver_id}, receiver_id: {_eq: $giver_id}}) {
+    id
+    giver_id
+    receiver_id
+  }
+}
+
+mutation create_conversation($id: uuid!, $objects: [conversations_users_insert_input!]!) {
+  insert_conversations_one(object: {id: $id, name: "what"}) {
+    id
+  }
+  insert_conversations_users(objects: $objects) {
+    affected_rows
+  }
+}
+
+query get_dancers_without_disliked {
+  dancers(where: {_not: {user: {}}}) {
+    id
+    first_name
+  }
+}
+
+mutation MyMutation4 {
+  insert_dislikes_one(object: {reciever_id: "f9036efe-77f6-48b9-944e-499a4a21d1d4"}) {
+    id
+  }
+}
+
+query get_new_conversations {
+  conversations(where: {last_message_at: {_is_null: true}}) {
+    id
+    last_message_at
+    conversations_users {
+      user {
+        dancer {
+          first_name
+          avatar
+        }
+      }
+    }
+  }
+}
+
+query get_recent_conversations($offset: Int = 0, $limit: Int = 10) {
+  conversations(order_by: {last_message_at: asc}, where: {last_message_at: {_is_null: false}}) {
+    messages(order_by: {sent_at: asc}, limit: 1) {
+      id
+      who_read
+    }
+    conversations_users {
+      user {
+        dancer {
+          first_name
+          bio
+          avatar
+        }
+      }
+    }
+  }
+}
+
+mutation send_message($content: String = "", $conversation_id: uuid = "", $last_message_at: date = "") {
+  insert_messages_one(object: {content: $content, conversation_id: $conversation_id}) {
+    id
+    sent_at
+  }
+  update_conversations_by_pk(pk_columns: {id: $conversation_id}, _set: {last_message_at: $last_message_at}) {
+    last_message_at
+    id
+  }
+}

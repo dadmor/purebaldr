@@ -1,0 +1,123 @@
+table:
+  name: dance_events
+  schema: public
+object_relationships:
+- name: owner
+  using:
+    foreign_key_constraint_on: owner_id
+array_relationships:
+- name: dance_events_users
+  using:
+    foreign_key_constraint_on:
+      column: dance_event_id
+      table:
+        name: dance_events_users
+        schema: public
+insert_permissions:
+- permission:
+    backend_only: false
+    check: {}
+    columns:
+    - address
+    - description
+    - end_date
+    - gallery
+    - id
+    - name
+    - owner_id
+    - position
+    - start_date
+    - thumbnail_url
+    set:
+      owner_id: x-hasura-User-Id
+  role: academy
+- permission:
+    backend_only: false
+    check: {}
+    columns:
+    - address
+    - description
+    - end_date
+    - gallery
+    - id
+    - name
+    - owner_id
+    - position
+    - start_date
+    - thumbnail_url
+    set:
+      owner_id: x-hasura-User-Id
+  role: dancer
+select_permissions:
+- permission:
+    columns:
+    - address
+    - description
+    - end_date
+    - gallery
+    - id
+    - location
+    - name
+    - owner_id
+    - position
+    - start_date
+    - thumbnail_url
+    filter:
+      deleted_at:
+        _is_null: true
+  role: academy
+- permission:
+    columns:
+    - address
+    - deleted_at
+    - description
+    - end_date
+    - gallery
+    - id
+    - location
+    - name
+    - owner_id
+    - position
+    - start_date
+    - thumbnail_url
+    filter:
+      deleted_at:
+        _is_null: true
+  role: dancer
+update_permissions:
+- permission:
+    check: null
+    columns:
+    - address
+    - description
+    - end_date
+    - gallery
+    - id
+    - name
+    - position
+    - start_date
+    - thumbnail_url
+    filter:
+      owner_id:
+        _eq: X-Hasura-User-Id
+    set:
+      owner_id: x-hasura-User-Id
+  role: academy
+- permission:
+    check: null
+    columns:
+    - address
+    - description
+    - end_date
+    - gallery
+    - id
+    - name
+    - position
+    - start_date
+    - thumbnail_url
+    filter:
+      owner_id:
+        _eq: X-Hasura-User-Id
+    set:
+      owner_id: x-hasura-User-Id
+  role: dancer

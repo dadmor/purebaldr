@@ -1,0 +1,2 @@
+CREATE TABLE "public"."dance_events_dancers" ("id" uuid NOT NULL DEFAULT gen_random_uuid(), "dance_event_id" UUID NOT NULL, "dancer_id" UUID NOT NULL, PRIMARY KEY ("id") , FOREIGN KEY ("dancer_id") REFERENCES "public"."dancers"("id") ON UPDATE restrict ON DELETE restrict, FOREIGN KEY ("dance_event_id") REFERENCES "public"."dance_events"("id") ON UPDATE restrict ON DELETE restrict);
+CREATE EXTENSION IF NOT EXISTS pgcrypto;

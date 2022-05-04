@@ -1,0 +1,2289 @@
+{
+  "resource_version": 122,
+  "metadata": {
+    "version": 3,
+    "sources": [
+      {
+        "name": "postgres",
+        "kind": "postgres",
+        "tables": [
+          {
+            "table": {
+              "schema": "public",
+              "name": "addressess"
+            },
+            "object_relationships": [
+              {
+                "name": "specialist",
+                "using": {
+                  "foreign_key_constraint_on": "specialist_id"
+                }
+              }
+            ],
+            "insert_permissions": [
+              {
+                "role": "specialist",
+                "permission": {
+                  "check": {},
+                  "columns": [
+                    "building_no",
+                    "calendar_settings",
+                    "city",
+                    "created_at",
+                    "geolocation",
+                    "id",
+                    "is_online",
+                    "latitude",
+                    "local_no",
+                    "longitude",
+                    "postal_code",
+                    "specialist_id",
+                    "street",
+                    "updated_at"
+                  ],
+                  "backend_only": false
+                }
+              }
+            ],
+            "select_permissions": [
+              {
+                "role": "anonymous",
+                "permission": {
+                  "columns": [
+                    "building_no",
+                    "calendar_settings",
+                    "city",
+                    "created_at",
+                    "geolocation",
+                    "id",
+                    "is_online",
+                    "latitude",
+                    "local_no",
+                    "longitude",
+                    "postal_code",
+                    "specialist_id",
+                    "street",
+                    "updated_at"
+                  ],
+                  "filter": {}
+                }
+              },
+              {
+                "role": "customer",
+                "permission": {
+                  "columns": [
+                    "building_no",
+                    "calendar_settings",
+                    "city",
+                    "created_at",
+                    "geolocation",
+                    "id",
+                    "is_online",
+                    "latitude",
+                    "local_no",
+                    "longitude",
+                    "postal_code",
+                    "specialist_id",
+                    "street",
+                    "updated_at"
+                  ],
+                  "filter": {}
+                }
+              },
+              {
+                "role": "specialist",
+                "permission": {
+                  "columns": [
+                    "building_no",
+                    "calendar_settings",
+                    "city",
+                    "created_at",
+                    "geolocation",
+                    "id",
+                    "is_online",
+                    "latitude",
+                    "local_no",
+                    "longitude",
+                    "postal_code",
+                    "specialist_id",
+                    "street",
+                    "updated_at"
+                  ],
+                  "filter": {},
+                  "allow_aggregations": true
+                }
+              }
+            ],
+            "update_permissions": [
+              {
+                "role": "specialist",
+                "permission": {
+                  "columns": [
+                    "building_no",
+                    "calendar_settings",
+                    "city",
+                    "created_at",
+                    "geolocation",
+                    "id",
+                    "is_online",
+                    "latitude",
+                    "local_no",
+                    "longitude",
+                    "postal_code",
+                    "specialist_id",
+                    "street",
+                    "updated_at"
+                  ],
+                  "filter": {},
+                  "check": null
+                }
+              }
+            ],
+            "delete_permissions": [
+              {
+                "role": "specialist",
+                "permission": {
+                  "filter": {}
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "schema": "public",
+              "name": "answers"
+            },
+            "object_relationships": [
+              {
+                "name": "question",
+                "using": {
+                  "foreign_key_constraint_on": "question_id"
+                }
+              },
+              {
+                "name": "specialist",
+                "using": {
+                  "foreign_key_constraint_on": "specialist_id"
+                }
+              }
+            ],
+            "insert_permissions": [
+              {
+                "role": "specialist",
+                "permission": {
+                  "check": {},
+                  "set": {
+                    "specialist_id": "x-hasura-Specialist-id"
+                  },
+                  "columns": [
+                    "id",
+                    "question_id",
+                    "specialist_id",
+                    "content"
+                  ],
+                  "backend_only": false
+                }
+              }
+            ],
+            "select_permissions": [
+              {
+                "role": "anonymous",
+                "permission": {
+                  "columns": [
+                    "content",
+                    "created_at",
+                    "id",
+                    "question_id",
+                    "specialist_id"
+                  ],
+                  "filter": {}
+                }
+              },
+              {
+                "role": "customer",
+                "permission": {
+                  "columns": [
+                    "content",
+                    "created_at",
+                    "id",
+                    "question_id",
+                    "specialist_id"
+                  ],
+                  "filter": {}
+                }
+              },
+              {
+                "role": "specialist",
+                "permission": {
+                  "columns": [
+                    "content",
+                    "created_at",
+                    "id",
+                    "question_id",
+                    "specialist_id"
+                  ],
+                  "filter": {}
+                }
+              }
+            ],
+            "update_permissions": [
+              {
+                "role": "specialist",
+                "permission": {
+                  "columns": [
+                    "id",
+                    "question_id",
+                    "specialist_id",
+                    "content"
+                  ],
+                  "filter": {
+                    "specialist_id": {
+                      "_eq": "x-hasura-specialist-id"
+                    }
+                  },
+                  "check": null
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "schema": "public",
+              "name": "cities"
+            },
+            "array_relationships": [
+              {
+                "name": "specialists",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "city_id",
+                    "table": {
+                      "schema": "public",
+                      "name": "specialists"
+                    }
+                  }
+                }
+              }
+            ],
+            "select_permissions": [
+              {
+                "role": "anonymous",
+                "permission": {
+                  "columns": [
+                    "id",
+                    "latitude",
+                    "longitude",
+                    "name",
+                    "slug"
+                  ],
+                  "filter": {}
+                }
+              },
+              {
+                "role": "customer",
+                "permission": {
+                  "columns": [
+                    "id",
+                    "latitude",
+                    "longitude",
+                    "name",
+                    "slug"
+                  ],
+                  "filter": {}
+                }
+              },
+              {
+                "role": "specialist",
+                "permission": {
+                  "columns": [
+                    "id",
+                    "latitude",
+                    "longitude",
+                    "name",
+                    "slug"
+                  ],
+                  "filter": {}
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "schema": "public",
+              "name": "favorite_specialists"
+            },
+            "object_relationships": [
+              {
+                "name": "specialist",
+                "using": {
+                  "foreign_key_constraint_on": "specialist_id"
+                }
+              },
+              {
+                "name": "user",
+                "using": {
+                  "foreign_key_constraint_on": "user_id"
+                }
+              }
+            ],
+            "insert_permissions": [
+              {
+                "role": "anonymous",
+                "permission": {
+                  "check": {},
+                  "set": {
+                    "user_id": "x-hasura-user-id"
+                  },
+                  "columns": [
+                    "id",
+                    "specialist_id",
+                    "user_id",
+                    "created_at",
+                    "updated_at"
+                  ],
+                  "backend_only": false
+                }
+              },
+              {
+                "role": "customer",
+                "permission": {
+                  "check": {},
+                  "set": {
+                    "user_id": "x-hasura-user-id"
+                  },
+                  "columns": [
+                    "id",
+                    "specialist_id",
+                    "user_id",
+                    "created_at",
+                    "updated_at"
+                  ],
+                  "backend_only": false
+                }
+              },
+              {
+                "role": "specialist",
+                "permission": {
+                  "check": {},
+                  "set": {
+                    "user_id": "x-hasura-user-id"
+                  },
+                  "columns": [
+                    "id",
+                    "specialist_id",
+                    "user_id",
+                    "created_at",
+                    "updated_at"
+                  ],
+                  "backend_only": false
+                }
+              }
+            ],
+            "select_permissions": [
+              {
+                "role": "anonymous",
+                "permission": {
+                  "columns": [
+                    "id",
+                    "specialist_id",
+                    "user_id",
+                    "created_at",
+                    "updated_at"
+                  ],
+                  "filter": {
+                    "user_id": {
+                      "_eq": "x-hasura-user-id"
+                    }
+                  }
+                }
+              },
+              {
+                "role": "customer",
+                "permission": {
+                  "columns": [
+                    "id",
+                    "specialist_id",
+                    "user_id",
+                    "created_at",
+                    "updated_at"
+                  ],
+                  "filter": {
+                    "user_id": {
+                      "_eq": "x-hasura-user-id"
+                    }
+                  }
+                }
+              },
+              {
+                "role": "specialist",
+                "permission": {
+                  "columns": [
+                    "id",
+                    "specialist_id",
+                    "user_id",
+                    "created_at",
+                    "updated_at"
+                  ],
+                  "filter": {
+                    "user_id": {
+                      "_eq": "x-hasura-user-id"
+                    }
+                  }
+                }
+              }
+            ],
+            "update_permissions": [
+              {
+                "role": "specialist",
+                "permission": {
+                  "columns": [
+                    "id",
+                    "specialist_id",
+                    "user_id",
+                    "created_at",
+                    "updated_at"
+                  ],
+                  "filter": {
+                    "user_id": {
+                      "_eq": "x-hasura-user-id"
+                    }
+                  },
+                  "check": null
+                }
+              }
+            ],
+            "delete_permissions": [
+              {
+                "role": "anonymous",
+                "permission": {
+                  "filter": {
+                    "user_id": {
+                      "_eq": "x-hasura-user-id"
+                    }
+                  }
+                }
+              },
+              {
+                "role": "customer",
+                "permission": {
+                  "filter": {
+                    "user_id": {
+                      "_eq": "x-hasura-user-id"
+                    }
+                  }
+                }
+              },
+              {
+                "role": "specialist",
+                "permission": {
+                  "filter": {
+                    "user_id": {
+                      "_eq": "x-hasura-user-id"
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "schema": "public",
+              "name": "opinions"
+            },
+            "object_relationships": [
+              {
+                "name": "reservation",
+                "using": {
+                  "foreign_key_constraint_on": "reservation_id"
+                }
+              },
+              {
+                "name": "specialist",
+                "using": {
+                  "foreign_key_constraint_on": "specialist_id"
+                }
+              },
+              {
+                "name": "user",
+                "using": {
+                  "foreign_key_constraint_on": "author_id"
+                }
+              }
+            ],
+            "insert_permissions": [
+              {
+                "role": "customer",
+                "permission": {
+                  "check": {},
+                  "set": {
+                    "author_id": "x-hasura-user-id"
+                  },
+                  "columns": [
+                    "content",
+                    "id",
+                    "rating",
+                    "reservation_id",
+                    "specialist_id"
+                  ],
+                  "backend_only": false
+                }
+              }
+            ],
+            "select_permissions": [
+              {
+                "role": "anonymous",
+                "permission": {
+                  "columns": [
+                    "author_id",
+                    "content",
+                    "id",
+                    "rating",
+                    "reservation_id",
+                    "specialist_id"
+                  ],
+                  "filter": {},
+                  "allow_aggregations": true
+                }
+              },
+              {
+                "role": "customer",
+                "permission": {
+                  "columns": [
+                    "author_id",
+                    "content",
+                    "id",
+                    "rating",
+                    "reservation_id",
+                    "specialist_id"
+                  ],
+                  "filter": {},
+                  "allow_aggregations": true
+                }
+              },
+              {
+                "role": "specialist",
+                "permission": {
+                  "columns": [
+                    "author_id",
+                    "content",
+                    "id",
+                    "rating",
+                    "reservation_id",
+                    "specialist_id"
+                  ],
+                  "filter": {},
+                  "allow_aggregations": true
+                }
+              }
+            ],
+            "update_permissions": [
+              {
+                "role": "customer",
+                "permission": {
+                  "columns": [
+                    "content",
+                    "id",
+                    "rating",
+                    "specialist_id"
+                  ],
+                  "filter": {
+                    "author_id": {
+                      "_eq": "X-Hasura-User-Id"
+                    }
+                  },
+                  "check": null,
+                  "set": {
+                    "author_id": "x-hasura-user-id"
+                  }
+                }
+              }
+            ],
+            "event_triggers": [
+              {
+                "name": "opinion-inserted",
+                "definition": {
+                  "enable_manual": false,
+                  "insert": {
+                    "columns": "*"
+                  }
+                },
+                "retry_conf": {
+                  "num_retries": 0,
+                  "interval_sec": 10,
+                  "timeout_sec": 60
+                },
+                "webhook": "{{ACTION_BASE_URL}}/events/opinion-inserted"
+              }
+            ]
+          },
+          {
+            "table": {
+              "schema": "public",
+              "name": "professions"
+            },
+            "object_relationships": [
+              {
+                "name": "profession",
+                "using": {
+                  "foreign_key_constraint_on": "parent_id"
+                }
+              }
+            ],
+            "array_relationships": [
+              {
+                "name": "professions",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "parent_id",
+                    "table": {
+                      "schema": "public",
+                      "name": "professions"
+                    }
+                  }
+                }
+              },
+              {
+                "name": "questions",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "profession_id",
+                    "table": {
+                      "schema": "public",
+                      "name": "questions"
+                    }
+                  }
+                }
+              },
+              {
+                "name": "secondary_professions_specialists",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "profession_id",
+                    "table": {
+                      "schema": "public",
+                      "name": "secondary_professions_specialists"
+                    }
+                  }
+                }
+              },
+              {
+                "name": "specialists",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "profession_id",
+                    "table": {
+                      "schema": "public",
+                      "name": "specialists"
+                    }
+                  }
+                }
+              }
+            ],
+            "select_permissions": [
+              {
+                "role": "anonymous",
+                "permission": {
+                  "columns": [
+                    "id",
+                    "created_at",
+                    "updated_at",
+                    "name",
+                    "slug",
+                    "is_active",
+                    "parent_id"
+                  ],
+                  "filter": {
+                    "is_active": {
+                      "_eq": true
+                    }
+                  }
+                }
+              },
+              {
+                "role": "customer",
+                "permission": {
+                  "columns": [
+                    "id",
+                    "created_at",
+                    "updated_at",
+                    "name",
+                    "slug",
+                    "is_active",
+                    "parent_id"
+                  ],
+                  "filter": {
+                    "is_active": {
+                      "_eq": true
+                    }
+                  }
+                }
+              },
+              {
+                "role": "specialist",
+                "permission": {
+                  "columns": [
+                    "id",
+                    "created_at",
+                    "updated_at",
+                    "name",
+                    "slug",
+                    "is_active",
+                    "parent_id"
+                  ],
+                  "filter": {
+                    "is_active": {
+                      "_eq": true
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "schema": "public",
+              "name": "questions"
+            },
+            "object_relationships": [
+              {
+                "name": "profession",
+                "using": {
+                  "foreign_key_constraint_on": "profession_id"
+                }
+              },
+              {
+                "name": "user",
+                "using": {
+                  "foreign_key_constraint_on": "user_id"
+                }
+              }
+            ],
+            "array_relationships": [
+              {
+                "name": "answers",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "question_id",
+                    "table": {
+                      "schema": "public",
+                      "name": "answers"
+                    }
+                  }
+                }
+              }
+            ],
+            "insert_permissions": [
+              {
+                "role": "anonymous",
+                "permission": {
+                  "check": {},
+                  "columns": [
+                    "content",
+                    "id",
+                    "is_public",
+                    "profession_id",
+                    "title",
+                    "user_id"
+                  ],
+                  "backend_only": false
+                }
+              },
+              {
+                "role": "customer",
+                "permission": {
+                  "check": {},
+                  "set": {
+                    "user_id": "x-hasura-user-id"
+                  },
+                  "columns": [
+                    "content",
+                    "created_at",
+                    "id",
+                    "is_public",
+                    "profession_id",
+                    "title",
+                    "updated_at",
+                    "user_id"
+                  ],
+                  "backend_only": false
+                }
+              }
+            ],
+            "select_permissions": [
+              {
+                "role": "anonymous",
+                "permission": {
+                  "columns": [
+                    "content",
+                    "created_at",
+                    "id",
+                    "is_public",
+                    "profession_id",
+                    "title",
+                    "updated_at",
+                    "user_id"
+                  ],
+                  "filter": {}
+                }
+              },
+              {
+                "role": "customer",
+                "permission": {
+                  "columns": [
+                    "content",
+                    "created_at",
+                    "id",
+                    "is_public",
+                    "profession_id",
+                    "title",
+                    "updated_at",
+                    "user_id"
+                  ],
+                  "filter": {}
+                }
+              },
+              {
+                "role": "specialist",
+                "permission": {
+                  "columns": [
+                    "content",
+                    "created_at",
+                    "id",
+                    "is_public",
+                    "profession_id",
+                    "title",
+                    "updated_at",
+                    "user_id"
+                  ],
+                  "filter": {}
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "schema": "public",
+              "name": "reservations"
+            },
+            "object_relationships": [
+              {
+                "name": "addressess",
+                "using": {
+                  "foreign_key_constraint_on": "address_id"
+                }
+              },
+              {
+                "name": "opinion",
+                "using": {
+                  "foreign_key_constraint_on": "opinion_id"
+                }
+              },
+              {
+                "name": "specialist",
+                "using": {
+                  "foreign_key_constraint_on": "specialist_id"
+                }
+              },
+              {
+                "name": "user",
+                "using": {
+                  "foreign_key_constraint_on": "user_id"
+                }
+              }
+            ],
+            "array_relationships": [
+              {
+                "name": "opinions",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "reservation_id",
+                    "table": {
+                      "schema": "public",
+                      "name": "opinions"
+                    }
+                  }
+                }
+              }
+            ],
+            "insert_permissions": [
+              {
+                "role": "customer",
+                "permission": {
+                  "check": {},
+                  "set": {
+                    "user_id": "x-hasura-user-id"
+                  },
+                  "columns": [
+                    "address_id",
+                    "created_at",
+                    "email",
+                    "first_name",
+                    "id",
+                    "is_accepted",
+                    "is_rejected",
+                    "last_name",
+                    "opinion_id",
+                    "phone",
+                    "price",
+                    "reservation_at",
+                    "reservation_place",
+                    "reservation_timespan",
+                    "service",
+                    "specialist_id",
+                    "updated_at",
+                    "user_id"
+                  ],
+                  "backend_only": false
+                }
+              },
+              {
+                "role": "specialist",
+                "permission": {
+                  "check": {
+                    "specialist": {
+                      "user_id": {
+                        "_eq": "X-Hasura-User-Id"
+                      }
+                    }
+                  },
+                  "columns": [
+                    "address_id",
+                    "email",
+                    "first_name",
+                    "id",
+                    "is_accepted",
+                    "is_rejected",
+                    "is_reminded",
+                    "last_name",
+                    "opinion_id",
+                    "phone",
+                    "price",
+                    "reservation_at",
+                    "reservation_place",
+                    "reservation_timespan",
+                    "service",
+                    "specialist_id",
+                    "user_id"
+                  ],
+                  "backend_only": false
+                }
+              }
+            ],
+            "select_permissions": [
+              {
+                "role": "anonymous",
+                "permission": {
+                  "columns": [
+                    "is_accepted",
+                    "is_rejected",
+                    "is_reminded",
+                    "price",
+                    "reservation_timespan",
+                    "address_id",
+                    "id",
+                    "opinion_id",
+                    "specialist_id",
+                    "user_id",
+                    "email",
+                    "first_name",
+                    "last_name",
+                    "phone",
+                    "reservation_place",
+                    "service",
+                    "created_at",
+                    "reservation_at",
+                    "updated_at"
+                  ],
+                  "filter": {}
+                }
+              },
+              {
+                "role": "customer",
+                "permission": {
+                  "columns": [
+                    "is_accepted",
+                    "is_rejected",
+                    "is_reminded",
+                    "price",
+                    "reservation_timespan",
+                    "address_id",
+                    "id",
+                    "opinion_id",
+                    "specialist_id",
+                    "user_id",
+                    "email",
+                    "first_name",
+                    "last_name",
+                    "phone",
+                    "reservation_place",
+                    "service",
+                    "created_at",
+                    "reservation_at",
+                    "updated_at"
+                  ],
+                  "filter": {},
+                  "allow_aggregations": true
+                }
+              },
+              {
+                "role": "specialist",
+                "permission": {
+                  "columns": [
+                    "id",
+                    "is_accepted",
+                    "specialist_id",
+                    "user_id",
+                    "created_at",
+                    "updated_at",
+                    "reservation_at",
+                    "service",
+                    "is_rejected",
+                    "reservation_place",
+                    "reservation_timespan",
+                    "price",
+                    "address_id",
+                    "opinion_id",
+                    "is_reminded",
+                    "first_name",
+                    "last_name",
+                    "phone",
+                    "email"
+                  ],
+                  "filter": {}
+                }
+              }
+            ],
+            "update_permissions": [
+              {
+                "role": "customer",
+                "permission": {
+                  "columns": [
+                    "is_accepted",
+                    "opinion_id",
+                    "specialist_id",
+                    "user_id"
+                  ],
+                  "filter": {
+                    "user_id": {
+                      "_eq": "X-Hasura-User-Id"
+                    }
+                  },
+                  "check": null
+                }
+              },
+              {
+                "role": "specialist",
+                "permission": {
+                  "columns": [
+                    "is_accepted",
+                    "is_rejected"
+                  ],
+                  "filter": {
+                    "specialist": {
+                      "user_id": {
+                        "_eq": "X-Hasura-User-Id"
+                      }
+                    }
+                  },
+                  "check": null
+                }
+              }
+            ],
+            "event_triggers": [
+              {
+                "name": "reservation-inserted",
+                "definition": {
+                  "enable_manual": false,
+                  "insert": {
+                    "columns": "*"
+                  }
+                },
+                "retry_conf": {
+                  "num_retries": 10,
+                  "interval_sec": 60,
+                  "timeout_sec": 60
+                },
+                "webhook": "{{ACTION_BASE_URL}}/events/reservation-inserted"
+              },
+              {
+                "name": "reservation-updated",
+                "definition": {
+                  "enable_manual": false,
+                  "update": {
+                    "columns": "*"
+                  }
+                },
+                "retry_conf": {
+                  "num_retries": 0,
+                  "interval_sec": 10,
+                  "timeout_sec": 60
+                },
+                "webhook": "{{ACTION_BASE_URL}}/events/reservation-updated"
+              }
+            ]
+          },
+          {
+            "table": {
+              "schema": "public",
+              "name": "secondary_professions_specialists"
+            },
+            "object_relationships": [
+              {
+                "name": "profession",
+                "using": {
+                  "foreign_key_constraint_on": "profession_id"
+                }
+              },
+              {
+                "name": "specialist",
+                "using": {
+                  "foreign_key_constraint_on": "specialist_id"
+                }
+              }
+            ],
+            "insert_permissions": [
+              {
+                "role": "specialist",
+                "permission": {
+                  "check": {
+                    "specialist": {
+                      "user_id": {
+                        "_eq": "X-Hasura-User-Id"
+                      }
+                    }
+                  },
+                  "columns": [
+                    "id",
+                    "profession_id",
+                    "specialist_id"
+                  ],
+                  "backend_only": false
+                }
+              }
+            ],
+            "select_permissions": [
+              {
+                "role": "anonymous",
+                "permission": {
+                  "columns": [
+                    "id",
+                    "profession_id",
+                    "specialist_id"
+                  ],
+                  "filter": {}
+                }
+              },
+              {
+                "role": "customer",
+                "permission": {
+                  "columns": [
+                    "id",
+                    "profession_id",
+                    "specialist_id"
+                  ],
+                  "filter": {}
+                }
+              },
+              {
+                "role": "specialist",
+                "permission": {
+                  "columns": [
+                    "id",
+                    "profession_id",
+                    "specialist_id"
+                  ],
+                  "filter": {}
+                }
+              }
+            ],
+            "update_permissions": [
+              {
+                "role": "specialist",
+                "permission": {
+                  "columns": [
+                    "id",
+                    "profession_id",
+                    "specialist_id"
+                  ],
+                  "filter": {
+                    "specialist": {
+                      "user_id": {
+                        "_eq": "X-Hasura-User-Id"
+                      }
+                    }
+                  },
+                  "check": null,
+                  "set": {
+                    "specialist_id": "x-hasura-User-Id"
+                  }
+                }
+              }
+            ],
+            "delete_permissions": [
+              {
+                "role": "specialist",
+                "permission": {
+                  "filter": {
+                    "specialist": {
+                      "user_id": {
+                        "_eq": "X-Hasura-User-Id"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "schema": "public",
+              "name": "services"
+            },
+            "object_relationships": [
+              {
+                "name": "specialist",
+                "using": {
+                  "foreign_key_constraint_on": "specialist_id"
+                }
+              }
+            ],
+            "insert_permissions": [
+              {
+                "role": "specialist",
+                "permission": {
+                  "check": {},
+                  "set": {
+                    "specialist_id": "x-hasura-Specialist-Id"
+                  },
+                  "columns": [
+                    "addresses",
+                    "id",
+                    "name",
+                    "price",
+                    "specialist_id",
+                    "timespan"
+                  ],
+                  "backend_only": false
+                }
+              }
+            ],
+            "select_permissions": [
+              {
+                "role": "anonymous",
+                "permission": {
+                  "columns": [
+                    "id",
+                    "specialist_id",
+                    "price",
+                    "timespan",
+                    "addresses",
+                    "created_at",
+                    "name"
+                  ],
+                  "filter": {}
+                }
+              },
+              {
+                "role": "customer",
+                "permission": {
+                  "columns": [
+                    "timespan",
+                    "id",
+                    "price",
+                    "specialist_id",
+                    "addresses",
+                    "name",
+                    "created_at"
+                  ],
+                  "filter": {}
+                }
+              },
+              {
+                "role": "specialist",
+                "permission": {
+                  "columns": [
+                    "addresses",
+                    "created_at",
+                    "id",
+                    "name",
+                    "price",
+                    "specialist_id",
+                    "timespan"
+                  ],
+                  "filter": {}
+                }
+              }
+            ],
+            "update_permissions": [
+              {
+                "role": "specialist",
+                "permission": {
+                  "columns": [
+                    "addresses",
+                    "id",
+                    "name",
+                    "price",
+                    "specialist_id",
+                    "timespan"
+                  ],
+                  "filter": {
+                    "specialist_id": {
+                      "_eq": "X-Hasura-Specialist-Id"
+                    }
+                  },
+                  "check": null,
+                  "set": {
+                    "specialist_id": "x-hasura-Specialist-Id"
+                  }
+                }
+              }
+            ],
+            "delete_permissions": [
+              {
+                "role": "specialist",
+                "permission": {
+                  "filter": {
+                    "specialist_id": {
+                      "_eq": "X-Hasura-Specialist-Id"
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "schema": "public",
+              "name": "specialists"
+            },
+            "object_relationships": [
+              {
+                "name": "city",
+                "using": {
+                  "foreign_key_constraint_on": "city_id"
+                }
+              },
+              {
+                "name": "profession",
+                "using": {
+                  "foreign_key_constraint_on": "profession_id"
+                }
+              },
+              {
+                "name": "user",
+                "using": {
+                  "foreign_key_constraint_on": "user_id"
+                }
+              }
+            ],
+            "array_relationships": [
+              {
+                "name": "addressesses",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "specialist_id",
+                    "table": {
+                      "schema": "public",
+                      "name": "addressess"
+                    }
+                  }
+                }
+              },
+              {
+                "name": "answers",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "specialist_id",
+                    "table": {
+                      "schema": "public",
+                      "name": "answers"
+                    }
+                  }
+                }
+              },
+              {
+                "name": "opinions",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "specialist_id",
+                    "table": {
+                      "schema": "public",
+                      "name": "opinions"
+                    }
+                  }
+                }
+              },
+              {
+                "name": "reservations",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "specialist_id",
+                    "table": {
+                      "schema": "public",
+                      "name": "reservations"
+                    }
+                  }
+                }
+              },
+              {
+                "name": "secondary_professions_specialists",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "specialist_id",
+                    "table": {
+                      "schema": "public",
+                      "name": "secondary_professions_specialists"
+                    }
+                  }
+                }
+              },
+              {
+                "name": "services",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "specialist_id",
+                    "table": {
+                      "schema": "public",
+                      "name": "services"
+                    }
+                  }
+                }
+              }
+            ],
+            "insert_permissions": [
+              {
+                "role": "specialist",
+                "permission": {
+                  "check": {},
+                  "set": {
+                    "user_id": "x-hasura-user-id"
+                  },
+                  "columns": [
+                    "avatar_url",
+                    "calendar_settings",
+                    "city_id",
+                    "description",
+                    "experience",
+                    "id",
+                    "is_active",
+                    "is_verified",
+                    "profession_id",
+                    "shown_name",
+                    "user_id"
+                  ],
+                  "backend_only": false
+                }
+              }
+            ],
+            "select_permissions": [
+              {
+                "role": "anonymous",
+                "permission": {
+                  "columns": [
+                    "avatar_url",
+                    "calendar_settings",
+                    "city_id",
+                    "description",
+                    "experience",
+                    "id",
+                    "is_active",
+                    "is_verified",
+                    "profession_id",
+                    "shown_name",
+                    "user_id"
+                  ],
+                  "filter": {}
+                }
+              },
+              {
+                "role": "customer",
+                "permission": {
+                  "columns": [
+                    "avatar_url",
+                    "calendar_settings",
+                    "city_id",
+                    "description",
+                    "experience",
+                    "id",
+                    "is_active",
+                    "is_verified",
+                    "profession_id",
+                    "shown_name",
+                    "user_id"
+                  ],
+                  "filter": {}
+                }
+              },
+              {
+                "role": "specialist",
+                "permission": {
+                  "columns": [
+                    "id",
+                    "shown_name",
+                    "is_verified",
+                    "is_active",
+                    "profession_id",
+                    "user_id",
+                    "description",
+                    "avatar_url",
+                    "calendar_settings",
+                    "city_id",
+                    "experience"
+                  ],
+                  "filter": {},
+                  "allow_aggregations": true
+                }
+              }
+            ],
+            "update_permissions": [
+              {
+                "role": "specialist",
+                "permission": {
+                  "columns": [
+                    "avatar_url",
+                    "calendar_settings",
+                    "city_id",
+                    "description",
+                    "experience",
+                    "id",
+                    "is_active",
+                    "is_verified",
+                    "profession_id",
+                    "shown_name",
+                    "user_id"
+                  ],
+                  "filter": {
+                    "user_id": {
+                      "_eq": "X-Hasura-User-Id"
+                    }
+                  },
+                  "check": null,
+                  "set": {
+                    "user_id": "x-hasura-User-Id"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "schema": "public",
+              "name": "users"
+            },
+            "object_relationships": [
+              {
+                "name": "specialist",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "user_id",
+                    "table": {
+                      "schema": "public",
+                      "name": "specialists"
+                    }
+                  }
+                }
+              },
+              {
+                "name": "specialistBySpecialistId",
+                "using": {
+                  "foreign_key_constraint_on": "specialist_id"
+                }
+              }
+            ],
+            "array_relationships": [
+              {
+                "name": "questions",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "user_id",
+                    "table": {
+                      "schema": "public",
+                      "name": "questions"
+                    }
+                  }
+                }
+              },
+              {
+                "name": "reservations",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "user_id",
+                    "table": {
+                      "schema": "public",
+                      "name": "reservations"
+                    }
+                  }
+                }
+              }
+            ],
+            "insert_permissions": [
+              {
+                "role": "anonymous",
+                "permission": {
+                  "check": {
+                    "role": {
+                      "_in": [
+                        "specialist",
+                        "customer"
+                      ]
+                    }
+                  },
+                  "columns": [
+                    "accepted_marketing_at",
+                    "email",
+                    "first_name",
+                    "id",
+                    "last_name",
+                    "password",
+                    "phone",
+                    "profession_id",
+                    "role",
+                    "specialist_id"
+                  ],
+                  "backend_only": false
+                }
+              }
+            ],
+            "select_permissions": [
+              {
+                "role": "anonymous",
+                "permission": {
+                  "columns": [
+                    "accepted_marketing_at",
+                    "created_at",
+                    "email",
+                    "first_name",
+                    "id",
+                    "last_name",
+                    "phone",
+                    "profession_id",
+                    "role",
+                    "specialist_id",
+                    "updated_at"
+                  ],
+                  "filter": {}
+                }
+              },
+              {
+                "role": "customer",
+                "permission": {
+                  "columns": [
+                    "id",
+                    "profession_id",
+                    "specialist_id",
+                    "email",
+                    "first_name",
+                    "last_name",
+                    "password",
+                    "phone",
+                    "role",
+                    "accepted_marketing_at",
+                    "created_at",
+                    "updated_at"
+                  ],
+                  "filter": {}
+                }
+              },
+              {
+                "role": "specialist",
+                "permission": {
+                  "columns": [
+                    "id",
+                    "profession_id",
+                    "specialist_id",
+                    "email",
+                    "first_name",
+                    "last_name",
+                    "password",
+                    "phone",
+                    "role",
+                    "accepted_marketing_at",
+                    "created_at",
+                    "updated_at"
+                  ],
+                  "filter": {}
+                }
+              }
+            ],
+            "update_permissions": [
+              {
+                "role": "customer",
+                "permission": {
+                  "columns": [
+                    "id",
+                    "profession_id",
+                    "specialist_id",
+                    "email",
+                    "first_name",
+                    "last_name",
+                    "password",
+                    "phone",
+                    "role",
+                    "accepted_marketing_at",
+                    "created_at",
+                    "updated_at"
+                  ],
+                  "filter": {
+                    "id": {
+                      "_eq": "X-Hasura-User-Id"
+                    }
+                  },
+                  "check": null,
+                  "set": {
+                    "id": "x-hasura-User-Id"
+                  }
+                }
+              },
+              {
+                "role": "specialist",
+                "permission": {
+                  "columns": [
+                    "id",
+                    "profession_id",
+                    "specialist_id",
+                    "email",
+                    "first_name",
+                    "last_name",
+                    "password",
+                    "phone",
+                    "role",
+                    "accepted_marketing_at",
+                    "created_at",
+                    "updated_at"
+                  ],
+                  "filter": {
+                    "id": {
+                      "_eq": "X-Hasura-User-Id"
+                    }
+                  },
+                  "check": null
+                }
+              }
+            ]
+          }
+        ],
+        "configuration": {
+          "connection_info": {
+            "use_prepared_statements": false,
+            "database_url": {
+              "from_env": "PG_DATABASE_URL"
+            },
+            "isolation_level": "read-committed"
+          }
+        }
+      }
+    ],
+    "actions": [
+      {
+        "name": "ask_and_sign_up",
+        "definition": {
+          "handler": "{{ACTION_BASE_URL}}/customer/ask-question",
+          "output_type": "AskAndSignUpOutput",
+          "arguments": [
+            {
+              "name": "content",
+              "type": "String!"
+            },
+            {
+              "name": "profession_id",
+              "type": "Int!"
+            },
+            {
+              "name": "email",
+              "type": "String!"
+            },
+            {
+              "name": "accepted_marketing_at",
+              "type": "timestamptz"
+            }
+          ],
+          "type": "mutation",
+          "kind": "synchronous"
+        },
+        "permissions": [
+          {
+            "role": "anonymous"
+          }
+        ]
+      },
+      {
+        "name": "change_password",
+        "definition": {
+          "handler": "{{ACTION_BASE_URL}}/user/change-password",
+          "output_type": "ChangePasswordOutput",
+          "forward_client_headers": true,
+          "arguments": [
+            {
+              "name": "user_id",
+              "type": "Int!"
+            },
+            {
+              "name": "password",
+              "type": "String!"
+            }
+          ],
+          "type": "mutation",
+          "kind": "synchronous"
+        },
+        "permissions": [
+          {
+            "role": "specialist"
+          },
+          {
+            "role": "customer"
+          }
+        ]
+      },
+      {
+        "name": "customer_sign_up",
+        "definition": {
+          "handler": "{{ACTION_BASE_URL}}/customer/sign-up",
+          "output_type": "CustomerSignUpOutput",
+          "arguments": [
+            {
+              "name": "first_name",
+              "type": "String!"
+            },
+            {
+              "name": "last_name",
+              "type": "String!"
+            },
+            {
+              "name": "password",
+              "type": "String!"
+            },
+            {
+              "name": "email",
+              "type": "String!"
+            },
+            {
+              "name": "phone",
+              "type": "String!"
+            },
+            {
+              "name": "is_accepting_marketing",
+              "type": "Boolean!"
+            }
+          ],
+          "type": "mutation",
+          "kind": "synchronous"
+        },
+        "permissions": [
+          {
+            "role": "anonymous"
+          }
+        ]
+      },
+      {
+        "name": "help_request",
+        "definition": {
+          "handler": "{{ACTION_BASE_URL}}/help-request",
+          "output_type": "HelpRequestOutput",
+          "arguments": [
+            {
+              "name": "input",
+              "type": "HelpRequestInput!"
+            }
+          ],
+          "type": "mutation",
+          "kind": "synchronous"
+        },
+        "comment": "help_request",
+        "permissions": [
+          {
+            "role": "specialist"
+          },
+          {
+            "role": "anonymous"
+          },
+          {
+            "role": "customer"
+          }
+        ]
+      },
+      {
+        "name": "reserve_and_sign_up",
+        "definition": {
+          "handler": "{{ACTION_BASE_URL}}/customer/reserve",
+          "output_type": "ReserveAndSignUpOutput",
+          "arguments": [
+            {
+              "name": "specialist_id",
+              "type": "Int!"
+            },
+            {
+              "name": "first_name",
+              "type": "String!"
+            },
+            {
+              "name": "last_name",
+              "type": "String!"
+            },
+            {
+              "name": "email",
+              "type": "String!"
+            },
+            {
+              "name": "phone",
+              "type": "String"
+            },
+            {
+              "name": "reservation_at",
+              "type": "timestamptz!"
+            },
+            {
+              "name": "reservation_place",
+              "type": "String!"
+            },
+            {
+              "name": "reservation_timespan",
+              "type": "float8!"
+            },
+            {
+              "name": "price",
+              "type": "float8!"
+            },
+            {
+              "name": "service",
+              "type": "String!"
+            },
+            {
+              "name": "is_accepting_marketing",
+              "type": "Boolean!"
+            },
+            {
+              "name": "address_id",
+              "type": "Int!"
+            }
+          ],
+          "type": "mutation",
+          "kind": "synchronous"
+        },
+        "permissions": [
+          {
+            "role": "anonymous"
+          }
+        ]
+      },
+      {
+        "name": "sign_in",
+        "definition": {
+          "handler": "{{ACTION_BASE_URL}}/user/sign-in",
+          "output_type": "SingInOutput",
+          "arguments": [
+            {
+              "name": "password",
+              "type": "String!"
+            },
+            {
+              "name": "email",
+              "type": "String!"
+            }
+          ],
+          "type": "mutation",
+          "kind": "synchronous"
+        },
+        "permissions": [
+          {
+            "role": "specialist"
+          },
+          {
+            "role": "customer"
+          },
+          {
+            "role": "anonymous"
+          }
+        ]
+      },
+      {
+        "name": "specialist_sign_up",
+        "definition": {
+          "handler": "{{ACTION_BASE_URL}}/specialist/sign-up",
+          "output_type": "SpecialistSignUpOutput",
+          "arguments": [
+            {
+              "name": "first_name",
+              "type": "String!"
+            },
+            {
+              "name": "last_name",
+              "type": "String!"
+            },
+            {
+              "name": "password",
+              "type": "String!"
+            },
+            {
+              "name": "email",
+              "type": "String!"
+            },
+            {
+              "name": "phone",
+              "type": "String!"
+            },
+            {
+              "name": "profession_id",
+              "type": "Int!"
+            },
+            {
+              "name": "is_accepting_marketing",
+              "type": "Boolean!"
+            }
+          ],
+          "type": "mutation",
+          "kind": "synchronous"
+        },
+        "permissions": [
+          {
+            "role": "anonymous"
+          }
+        ]
+      }
+    ],
+    "custom_types": {
+      "input_objects": [
+        {
+          "name": "SampleInput",
+          "fields": [
+            {
+              "name": "username",
+              "type": "String!"
+            },
+            {
+              "name": "password",
+              "type": "String!"
+            }
+          ]
+        },
+        {
+          "name": "HelpRequestInput",
+          "fields": [
+            {
+              "name": "email",
+              "type": "String!"
+            },
+            {
+              "name": "user_id",
+              "type": "Int"
+            },
+            {
+              "name": "user_first_name",
+              "type": "String"
+            },
+            {
+              "name": "content",
+              "type": "String"
+            },
+            {
+              "name": "context",
+              "type": "json"
+            }
+          ]
+        }
+      ],
+      "objects": [
+        {
+          "name": "SpecialistSignUpOutput",
+          "fields": [
+            {
+              "name": "email",
+              "type": "String!"
+            },
+            {
+              "name": "first_name",
+              "type": "String!"
+            },
+            {
+              "name": "id",
+              "type": "Int!"
+            },
+            {
+              "name": "last_name",
+              "type": "String!"
+            },
+            {
+              "name": "phone",
+              "type": "String!"
+            },
+            {
+              "name": "access_token",
+              "type": "String!"
+            },
+            {
+              "name": "role",
+              "type": "String!"
+            },
+            {
+              "name": "specialist_id",
+              "type": "Int!"
+            }
+          ]
+        },
+        {
+          "name": "SingInOutput",
+          "fields": [
+            {
+              "name": "email",
+              "type": "String!"
+            },
+            {
+              "name": "first_name",
+              "type": "String!"
+            },
+            {
+              "name": "id",
+              "type": "Int!"
+            },
+            {
+              "name": "last_name",
+              "type": "String!"
+            },
+            {
+              "name": "phone",
+              "type": "String!"
+            },
+            {
+              "name": "access_token",
+              "type": "String!"
+            },
+            {
+              "name": "role",
+              "type": "String!"
+            },
+            {
+              "name": "specialist_id",
+              "type": "Int"
+            }
+          ]
+        },
+        {
+          "name": "ReserveAndSignUpOutput",
+          "fields": [
+            {
+              "name": "id",
+              "type": "Int!"
+            },
+            {
+              "name": "access_token",
+              "type": "String!"
+            },
+            {
+              "name": "email",
+              "type": "String!"
+            },
+            {
+              "name": "first_name",
+              "type": "String!"
+            },
+            {
+              "name": "last_name",
+              "type": "String!"
+            },
+            {
+              "name": "phone",
+              "type": "String!"
+            },
+            {
+              "name": "role",
+              "type": "String!"
+            }
+          ]
+        },
+        {
+          "name": "SampleOutput",
+          "fields": [
+            {
+              "name": "accessToken",
+              "type": "String!"
+            }
+          ]
+        },
+        {
+          "name": "CustomerSignUpOutput",
+          "fields": [
+            {
+              "name": "email",
+              "type": "String!"
+            },
+            {
+              "name": "first_name",
+              "type": "String!"
+            },
+            {
+              "name": "id",
+              "type": "Int!"
+            },
+            {
+              "name": "last_name",
+              "type": "String!"
+            },
+            {
+              "name": "phone",
+              "type": "String!"
+            },
+            {
+              "name": "access_token",
+              "type": "String!"
+            },
+            {
+              "name": "role",
+              "type": "String!"
+            }
+          ]
+        },
+        {
+          "name": "ChangePasswordOutput",
+          "fields": [
+            {
+              "name": "password",
+              "type": "String!"
+            }
+          ]
+        },
+        {
+          "name": "AskAndSignUpOutput",
+          "fields": [
+            {
+              "name": "content",
+              "type": "String!"
+            },
+            {
+              "name": "created_at",
+              "type": "timestamptz!"
+            },
+            {
+              "name": "id",
+              "type": "Int!"
+            },
+            {
+              "name": "access_token",
+              "type": "String!"
+            }
+          ]
+        },
+        {
+          "name": "HelpRequestOutput",
+          "fields": [
+            {
+              "name": "success",
+              "type": "Boolean!"
+            },
+            {
+              "name": "message",
+              "type": "String"
+            }
+          ]
+        }
+      ]
+    },
+    "cron_triggers": [
+      {
+        "name": "remind-about-reservations",
+        "webhook": "{{ACTION_BASE_URL}}/events/remind-about-reservations",
+        "schedule": "0 * * * *",
+        "include_in_metadata": true,
+        "payload": {}
+      }
+    ]
+  }
+}

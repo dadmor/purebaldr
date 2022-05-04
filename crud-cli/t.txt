@@ -1,0 +1,21 @@
+{/* */
+/* #InsertView Slot Imports */}
+
+{/* */
+/* #InsertView Slot GQL */}
+
+{/* */
+/* #InsertView Slot Mutation */}
+
+const InsertView: React.FC = () => {
+  return <div className="grid grid-cols-5 gap-8">
+    {/* */
+    /* #InsertView Slot Body# */}
+<div>ale<div>
+<div>jaja</div>
+<div>ale<div>
+<div>jaja</div>
+    {/* #!!# */}
+</div>
+};
+export default InsertView;

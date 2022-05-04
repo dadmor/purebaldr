@@ -1,0 +1,33 @@
+query get_dancers_without_disliked {
+  dancers(
+    where: {
+      _and: {
+        _not: {
+          user: {
+            dislikes_receivers: {
+              giver_id: { _eq: "5b824d98-827c-4b71-83fd-acc82abad0d1" }
+            }
+          }
+        }
+      }
+      _not: {
+        user: {
+          likes_receivers: {
+            giver_id: { _eq: "5b824d98-827c-4b71-83fd-acc82abad0d1" }
+          }
+        }
+      }
+    }
+  ) {
+    id
+    first_name
+    user_id
+    user {
+      dislikes_receivers {
+        giver_id
+        id
+        reciever_id
+      }
+    }
+  }
+}

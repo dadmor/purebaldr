@@ -1,0 +1,87 @@
+table:
+  name: messages
+  schema: public
+object_relationships:
+- name: conversation
+  using:
+    foreign_key_constraint_on: conversation_id
+- name: user
+  using:
+    foreign_key_constraint_on: sender_id
+insert_permissions:
+- permission:
+    backend_only: false
+    check:
+      conversation:
+        conversations_users:
+          id:
+            _eq: X-Hasura-User-Id
+    columns:
+    - who_read
+    - content
+    - sent_at
+    - conversation_id
+    - id
+    - sender_id
+    set:
+      sender_id: x-hasura-User-Id
+  role: academy
+- permission:
+    backend_only: false
+    check:
+      conversation:
+        conversations_users:
+          user_id:
+            _eq: X-Hasura-User-Id
+    columns:
+    - who_read
+    - content
+    - sent_at
+    - conversation_id
+    - id
+    - sender_id
+    set:
+      sender_id: x-hasura-User-Id
+  role: dancer
+select_permissions:
+- permission:
+    allow_aggregations: true
+    columns:
+    - content
+    - conversation_id
+    - id
+    - sender_id
+    - sent_at
+    - who_read
+    filter:
+      conversation:
+        conversations_users:
+          id:
+            _eq: X-Hasura-User-Id
+  role: academy
+- permission:
+    allow_aggregations: true
+    columns:
+    - who_read
+    - content
+    - sent_at
+    - conversation_id
+    - id
+    - sender_id
+    filter:
+      conversation:
+        conversations_users:
+          user_id:
+            _eq: X-Hasura-User-Id
+  role: dancer
+delete_permissions:
+- permission:
+    filter:
+      sender_id:
+        _eq: X-Hasura-User-Id
+  role: academy
+- permission:
+    filter:
+      sender_id:
+        _eq: X-Hasura-User-Id
+  role: dancer

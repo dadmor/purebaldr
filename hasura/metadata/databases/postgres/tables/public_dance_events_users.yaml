@@ -1,0 +1,57 @@
+table:
+  name: dance_events_users
+  schema: public
+object_relationships:
+- name: dance_event
+  using:
+    foreign_key_constraint_on: dance_event_id
+- name: user
+  using:
+    foreign_key_constraint_on: user_id
+insert_permissions:
+- permission:
+    backend_only: false
+    check: {}
+    columns:
+    - dance_event_id
+    - id
+    set:
+      user_id: x-hasura-User-Id
+  role: academy
+- permission:
+    backend_only: false
+    check: {}
+    columns:
+    - dance_event_id
+    - id
+    set:
+      user_id: x-hasura-User-Id
+  role: dancer
+select_permissions:
+- permission:
+    allow_aggregations: true
+    columns:
+    - dance_event_id
+    - id
+    - user_id
+    filter: {}
+  role: academy
+- permission:
+    allow_aggregations: true
+    columns:
+    - dance_event_id
+    - id
+    - user_id
+    filter: {}
+  role: dancer
+delete_permissions:
+- permission:
+    filter:
+      user_id:
+        _eq: X-Hasura-User-Id
+  role: academy
+- permission:
+    filter:
+      user_id:
+        _eq: X-Hasura-User-Id
+  role: dancer

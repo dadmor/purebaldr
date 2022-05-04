@@ -1,0 +1,32 @@
+table:
+  name: dance_styles
+  schema: public
+array_relationships:
+- name: academies_dance_styles
+  using:
+    foreign_key_constraint_on:
+      column: dance_style_id
+      table:
+        name: academies_dance_styles
+        schema: public
+- name: dance_styles_dancers
+  using:
+    foreign_key_constraint_on:
+      column: dance_style_id
+      table:
+        name: dance_styles_dancers
+        schema: public
+select_permissions:
+- permission:
+    allow_aggregations: true
+    columns:
+    - name
+    - id
+    filter: {}
+  role: academy
+- permission:
+    columns:
+    - name
+    - id
+    filter: {}
+  role: dancer

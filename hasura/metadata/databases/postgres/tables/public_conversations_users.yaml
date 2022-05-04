@@ -1,0 +1,44 @@
+table:
+  name: conversations_users
+  schema: public
+object_relationships:
+- name: conversation
+  using:
+    foreign_key_constraint_on: conversation_id
+- name: user
+  using:
+    foreign_key_constraint_on: user_id
+insert_permissions:
+- permission:
+    backend_only: false
+    check: {}
+    columns:
+    - conversation_id
+    - id
+    - user_id
+  role: dancer
+select_permissions:
+- permission:
+    allow_aggregations: true
+    columns:
+    - conversation_id
+    - id
+    - user_id
+    filter:
+      conversation:
+        conversations_users:
+          user_id:
+            _eq: X-Hasura-User-Id
+  role: academy
+- permission:
+    allow_aggregations: true
+    columns:
+    - conversation_id
+    - id
+    - user_id
+    filter:
+      conversation:
+        conversations_users:
+          user_id:
+            _eq: X-Hasura-User-Id
+  role: dancer

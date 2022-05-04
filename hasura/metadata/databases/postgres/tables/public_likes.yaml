@@ -1,0 +1,47 @@
+table:
+  name: likes
+  schema: public
+object_relationships:
+- name: giver
+  using:
+    foreign_key_constraint_on: giver_id
+- name: receiver
+  using:
+    foreign_key_constraint_on: receiver_id
+insert_permissions:
+- permission:
+    backend_only: false
+    check: {}
+    columns:
+    - giver_id
+    - receiver_id
+    set:
+      giver_id: x-hasura-user-id
+  role: dancer
+select_permissions:
+- permission:
+    columns:
+    - giver_id
+    - id
+    - receiver_id
+    filter:
+      giver_id:
+        _eq: X-Hasura-User-Id
+  role: dancer
+delete_permissions:
+- permission:
+    filter:
+      giver_id:
+        _eq: X-Hasura-User-Id
+  role: dancer
+event_triggers:
+- definition:
+    enable_manual: false
+    insert:
+      columns: "*"
+  name: on-like-created
+  retry_conf:
+    interval_sec: 10
+    num_retries: 0
+    timeout_sec: 60
+  webhook: "{{ACTION_BASE_URL}}/event/on-like-created"

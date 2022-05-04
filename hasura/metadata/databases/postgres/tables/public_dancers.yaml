@@ -1,0 +1,93 @@
+table:
+  name: dancers
+  schema: public
+object_relationships:
+- name: user
+  using:
+    foreign_key_constraint_on: user_id
+array_relationships:
+- name: academies_teachers
+  using:
+    foreign_key_constraint_on:
+      column: teacher_id
+      table:
+        name: academies_teachers
+        schema: public
+- name: dance_styles_dancers
+  using:
+    foreign_key_constraint_on:
+      column: dancer_id
+      table:
+        name: dance_styles_dancers
+        schema: public
+- name: dancer_languages
+  using:
+    foreign_key_constraint_on:
+      column: dancer_id
+      table:
+        name: dancer_languages
+        schema: public
+- name: users
+  using:
+    foreign_key_constraint_on:
+      column: dancer_id
+      table:
+        name: users
+        schema: public
+select_permissions:
+- permission:
+    columns:
+    - avatar
+    - bio
+    - birth_date
+    - first_name
+    - gallery
+    - gender
+    - height
+    - id
+    - is_visible_on_map
+    - last_known_location
+    - last_name
+    - profile_type
+    - user_id
+    filter: {}
+  role: academy
+- permission:
+    allow_aggregations: true
+    columns:
+    - avatar
+    - bio
+    - birth_date
+    - first_name
+    - gallery
+    - gender
+    - height
+    - id
+    - is_visible_on_map
+    - last_known_location
+    - last_location
+    - last_name
+    - profile_type
+    - user_id
+    filter: {}
+  role: dancer
+update_permissions:
+- permission:
+    check: null
+    columns:
+    - avatar
+    - bio
+    - birth_date
+    - first_name
+    - gallery
+    - gender
+    - height
+    - is_visible_on_map
+    - last_known_location
+    - last_location
+    - last_name
+    - profile_type
+    filter: {}
+    set:
+      id: x-hasura-Dancer-Id
+  role: dancer

@@ -1,0 +1,77 @@
+table:
+  name: academies
+  schema: public
+object_relationships:
+- name: user
+  using:
+    foreign_key_constraint_on: user_id
+array_relationships:
+- name: academies_dance_styles
+  using:
+    foreign_key_constraint_on:
+      column: academy_id
+      table:
+        name: academies_dance_styles
+        schema: public
+- name: academies_languages
+  using:
+    foreign_key_constraint_on:
+      column: academy_id
+      table:
+        name: academies_languages
+        schema: public
+- name: academies_teachers
+  using:
+    foreign_key_constraint_on:
+      column: academy_id
+      table:
+        name: academies_teachers
+        schema: public
+- name: users
+  using:
+    foreign_key_constraint_on:
+      column: academy_id
+      table:
+        name: users
+        schema: public
+select_permissions:
+- permission:
+    allow_aggregations: true
+    columns:
+    - gallery
+    - location
+    - address
+    - avatar_url
+    - bio
+    - name
+    - id
+    - user_id
+    filter: {}
+  role: academy
+- permission:
+    allow_aggregations: true
+    columns:
+    - address
+    - avatar_url
+    - bio
+    - gallery
+    - id
+    - location
+    - name
+    - user_id
+    filter: {}
+  role: dancer
+update_permissions:
+- permission:
+    check: null
+    columns:
+    - address
+    - avatar_url
+    - bio
+    - gallery
+    - location
+    - name
+    filter:
+      user_id:
+        _eq: X-Hasura-User-Id
+  role: academy

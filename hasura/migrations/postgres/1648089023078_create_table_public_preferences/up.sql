@@ -1,0 +1,2 @@
+CREATE TABLE "public"."preferences" ("id" uuid NOT NULL DEFAULT gen_random_uuid(), "age_from" integer NOT NULL, "age_to" integer NOT NULL, "height_from" integer NOT NULL, "height_to" integer NOT NULL, "distance" numeric NOT NULL, "gender" jsonb NOT NULL, "dance_styles" JSONB NOT NULL, "languages" JSONB NOT NULL, "user_id" uuid NOT NULL, PRIMARY KEY ("id") , FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON UPDATE cascade ON DELETE cascade);
+CREATE EXTENSION IF NOT EXISTS pgcrypto;

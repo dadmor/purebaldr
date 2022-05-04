@@ -1,0 +1,50 @@
+table:
+  name: academies_teachers
+  schema: public
+object_relationships:
+- name: academy
+  using:
+    foreign_key_constraint_on: academy_id
+- name: teacher
+  using:
+    foreign_key_constraint_on: teacher_id
+insert_permissions:
+- permission:
+    backend_only: false
+    check: {}
+    columns:
+    - id
+    - teacher_id
+    set:
+      academy_id: x-hasura-Academy-Id
+  role: academy
+select_permissions:
+- permission:
+    allow_aggregations: true
+    columns:
+    - academy_id
+    - id
+    - teacher_id
+    filter: {}
+  role: academy
+- permission:
+    allow_aggregations: true
+    columns:
+    - academy_id
+    - id
+    - teacher_id
+    filter: {}
+  role: dancer
+update_permissions:
+- permission:
+    check: null
+    columns:
+    - teacher_id
+    filter: {}
+  role: academy
+delete_permissions:
+- permission:
+    filter:
+      academy_id:
+        _eq: X-Hasura-Academy-Id
+  role: academy

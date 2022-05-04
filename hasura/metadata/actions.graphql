@@ -1,0 +1,30 @@
+type Mutation {
+  sign_in(
+    email: String!
+    password: String!
+  ): SignInOutput
+}
+
+type Mutation {
+  sign_up(
+    email: String!
+    password: String!
+  ): SignUpOutput
+}
+
+type SignInOutput {
+  access_token: String!
+  id: String!
+}
+
+type SignUpOutput {
+  email: String!
+  id: uuid!
+  access_token: String!
+}
+
+type SendMessageOutput {
+  id: uuid!
+  sent_at: timestamptz!
+}
+
